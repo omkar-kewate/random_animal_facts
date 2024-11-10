@@ -24,7 +24,7 @@ import com.example.randomanimalfacts.ui.TopBar
 import com.example.randomanimalfacts.ui.UserInputViewModel
 
 @Composable
-fun UserInputScreen(UserInputViewModel: UserInputViewModel) {
+fun UserInputScreen(UserInputViewModel: UserInputViewModel, showWelocmeScreen: (valuespair:Pair<String,String>) -> Unit) {
     Surface (
         modifier = Modifier.fillMaxSize()){
 
@@ -101,6 +101,12 @@ fun UserInputScreen(UserInputViewModel: UserInputViewModel) {
                         println("======ComingHere")
                         println("======${UserInputViewModel.uiState.value.nameEntered} and ${UserInputViewModel.uiState.value.animalSelected}")
 
+                        showWelocmeScreen(
+                            Pair(
+                                UserInputViewModel.uiState.value.nameEntered,
+                                UserInputViewModel.uiState.value.animalSelected
+                            )
+                        )
                     }
                 )
 
@@ -112,4 +118,9 @@ fun UserInputScreen(UserInputViewModel: UserInputViewModel) {
 @Preview
 @Composable
 fun UserInputScreenPreview(){
-    UserInputScreen(UserInputViewModel())}
+    UserInputScreen(UserInputViewModel()) {
+        println("coming_to_welcome_screen")
+        println(it.first)
+        println(it.second)
+    }
+}

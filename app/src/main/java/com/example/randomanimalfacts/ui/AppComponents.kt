@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -49,7 +50,7 @@ fun TopBar(value:String) {
         Image(
             modifier =Modifier.size(80.dp),
             painter = painterResource(id = R.drawable.logo) ,
-            contentDescription ="Native Mobile Bits" )
+            contentDescription ="Thala" )
     }
 
 
@@ -69,11 +70,13 @@ fun TopBarPreview ()  {
 
 
 @Composable
-fun TextComponent(textvalue:String, textSize : TextUnit, colourvalue:Color=Color.Red){
+fun TextComponent(textvalue:String, textSize : TextUnit, colourvalue:Color=Color.White){
+    Row(modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically){
     Text(text = textvalue,
         fontSize = textSize,
         color = colourvalue,
-        fontWeight = FontWeight.Bold)
+        fontWeight = FontWeight.Bold)}
 
 
 }
@@ -120,7 +123,8 @@ fun TextFieldComponent(
 
 @Preview(showBackground = true)
 @Composable
-fun TextFieldComponentPreview () {
+fun TextFieldComponentPreview () {Row(modifier = Modifier.fillMaxWidth(),
+    verticalAlignment = Alignment.CenterVertically){}
     TextFieldComponent(
         onTextChanged = TODO()
     )
@@ -185,4 +189,29 @@ fun ButtonComponent(
         TextComponent(textvalue = "Show the Fact", textSize = 20.sp, colourvalue = Color.White)
 
     }
+}
+
+@Composable
+fun FactComposable(value: String){
+    Spacer(modifier = Modifier.size((35.dp)))
+    Card(modifier = Modifier
+        .padding(43.dp)
+        .fillMaxWidth(),
+        shape = RoundedCornerShape(7.dp )
+    ) {
+        Column (
+            modifier = Modifier.padding(24.dp,32.dp)
+        ){
+            Spacer(modifier =Modifier.size(29.dp))
+          Text(value)
+            Spacer(modifier = Modifier.size(29.dp))
+        }
+    }
+
+
+}
+@Preview
+@Composable
+fun FactComposablePreview(){
+    FactComposable(value = "all")
 }
