@@ -123,11 +123,14 @@ fun TextFieldComponent(
 
 @Preview(showBackground = true)
 @Composable
-fun TextFieldComponentPreview () {Row(modifier = Modifier.fillMaxWidth(),
-    verticalAlignment = Alignment.CenterVertically){}
-    TextFieldComponent(
-        onTextChanged = TODO()
-    )
+fun TextFieldComponentPreview () {
+    Row(modifier = Modifier.fillMaxWidth(),
+    verticalAlignment = Alignment.CenterVertically){
+        TextFieldComponent(
+            onTextChanged = {}
+        )
+    }
+
 
 }
 @Composable

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "519808367570",
+    "project_id": "random-animalfacts",
+    "storage_bucket": "random-animalfacts.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:519808367570:android:dab30870d502e3b471a60b",
+        "android_client_info": {
+          "package_name": "com.example.randomanimalfacts"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDngM2IGcS9Dv-UqjxidAWVupZw6y6pqd0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

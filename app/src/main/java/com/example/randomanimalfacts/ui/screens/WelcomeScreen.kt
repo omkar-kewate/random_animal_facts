@@ -1,5 +1,6 @@
 package com.example.randomanimalfacts.ui.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,7 +24,7 @@ fun WelcomeScreen(username: String?, animalselected: String?) {
     Surface (
         modifier = Modifier.fillMaxSize()
     ){
-        Column (modifier = Modifier
+        Column (modifier = Modifier .background(color = Color.DarkGray)
             .fillMaxSize().
             padding(18.dp)){
             Spacer(modifier = Modifier.size(20.dp))
