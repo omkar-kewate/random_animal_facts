@@ -35,12 +35,12 @@ class UserInputViewModel :ViewModel() {
     }
 
     fun isValidState(): Boolean{
-        if (!uiState.value.nameEntered.isNullOrEmpty() && !uiState.value.animalSelected.isNullOrEmpty()){
+        if (uiState.value.nameEntered.isNotEmpty() && uiState.value.animalSelected.isNotEmpty()){
             return true
         }else{
             return false
         }
 
     }
-
+  
 }

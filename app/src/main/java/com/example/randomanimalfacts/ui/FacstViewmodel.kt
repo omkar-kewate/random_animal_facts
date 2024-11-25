@@ -1,11 +1,51 @@
 package com.example.randomanimalfacts.ui
-
+import FirestoreFactsRepository
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 class FacstViewmodel: ViewModel() {
 
-    fun generateRandomFact(selectedAnimalSelected: String) :String{
+    private val firestoreRepository = FirestoreFactsRepository()
+
+    // LiveData to hold the fact
+    private val _animalFact = MutableLiveData<String>()
+    val animalFact: LiveData<String> get() = _animalFact
+
+    fun generateAnimalFact(selectedAnimal: String) {
+        viewModelScope.launch {
+            var facts = emptyList<String>()
+
+            try {
+                // Fetch facts from Firestore or local
+                facts = firestoreRepository.getAnimalFactsByName(selectedAnimal)
+
+                if (facts.isEmpty()) {
+                    facts = getHardcodedFacts(selectedAnimal)
+                }
+            } catch (e: Exception) {
+                facts = getHardcodedFacts(selectedAnimal)
+            }
+
+            val randomFact = if (facts.isNotEmpty()) {
+                facts[Random.nextInt(facts.size)]
+            } else {
+                "No facts available for $selectedAnimal."
+            }
+
+            // Update the LiveData with the new fact
+            _animalFact.postValue(randomFact)
+        }
+    }
+
+
+
+
+
+    fun getHardcodedFacts(selectedAnimalSelected: String) : List<String> {
         val  factlist = when(selectedAnimalSelected){
             "Dog"-> getDogFacts()
             "Cat" -> getCatFacts()
@@ -16,12 +56,10 @@ class FacstViewmodel: ViewModel() {
             else -> listOf("No facts available for this animal.")
 
         }
-        return if (factlist.isNotEmpty()){
-            factlist[Random.nextInt(factlist.size)]
-        } else{
-            "no facts here"
+        return  factlist
+
         }
-    }
+
 
     fun getDogFacts(): List<String>{
         val dogFacts = listOf(

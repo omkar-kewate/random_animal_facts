@@ -1,5 +1,6 @@
 package com.example.randomanimalfacts.ui.screens
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -8,6 +9,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -19,6 +23,7 @@ import com.example.randomanimalfacts.ui.FactComposable
 import com.example.randomanimalfacts.ui.TextComponent
 import com.example.randomanimalfacts.ui.TopBar
 
+@SuppressLint("CoroutineCreationDuringComposition")
 @Composable
 fun WelcomeScreen(username: String?, animalselected: String?) {
     Surface (
@@ -34,8 +39,17 @@ fun WelcomeScreen(username: String?, animalselected: String?) {
             Spacer(modifier = Modifier.size(60.dp))
             TextComponent(textvalue = "So you are a $animalselected lover", textSize = 24.sp, colourvalue = Color.White)
             val factsViewModel : FacstViewmodel = viewModel()
+            LaunchedEffect(animalselected) {
+                if (animalselected != null) {
+                    factsViewModel.generateAnimalFact(animalselected)
+                }
+            }
 
-            FactComposable(value = factsViewModel.generateRandomFact(animalselected!!))
+            // Observe the fact LiveData
+            val randomFact by factsViewModel.animalFact.observeAsState("Loading...")
+
+            // Display the fact
+            FactComposable(randomFact)
 
         }
 
